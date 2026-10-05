@@ -1,0 +1,515 @@
+dang@dang-Legion-Pro-7-16IRX8:~$ ^[[200~ls -ld ~/embedded_lab2/rootfs/initramfs~
+ls: command not found
+dang@dang-Legion-Pro-7-16IRX8:~$ ls -ld ~/embedded_lab2/rootfs/initramfs
+drwxrwxr-x 11 dang dang 4096 Sep 28 11:12 /home/dang/embedded_lab2/rootfs/initramfs
+dang@dang-Legion-Pro-7-16IRX8:~$ sudo ls -lh ~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/
+[sudo] password for dang: 
+total 0
+dang@dang-Legion-Pro-7-16IRX8:~$ sudo ls -lh ~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/
+total 0
+dang@dang-Legion-Pro-7-16IRX8:~$ sudo cp ~/embedded_lab2/driver/lab2_driver.ko \ 
+~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/
+dang@dang-Legion-Pro-7-16IRX8:~$ sudo ls -lh ~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/
+total 140K
+-rw-r--r-- 1 root root 140K Oct  5 09:46 lab2_driver.ko
+dang@dang-Legion-Pro-7-16IRX8:~$ ls -ld ~/embedded_lab2/rootfs
+drwxrwxr-x 3 dang dang 4096 Sep 28 11:12 /home/dang/embedded_lab2/rootfs
+dang@dang-Legion-Pro-7-16IRX8:~$ ^[[200~ls ~/embedded_lab1/output/~
+ls: command not found
+dang@dang-Legion-Pro-7-16IRX8:~$ ls ~/embedded_lab1/output/
+initramfs.cpio.gz  u-boot  vexpress-v2p-ca9.dtb  zImage
+dang@dang-Legion-Pro-7-16IRX8:~$ ls -lh ~/embedded_lab1/output/
+total 10M
+-rw-rw-r-- 1 dang dang 1.1M Sep 21 11:17 initramfs.cpio.gz
+-rwxrwxr-x 1 dang dang 4.2M Sep 21 10:59 u-boot
+-rw-rw-r-- 1 dang dang  14K Sep 21 11:01 vexpress-v2p-ca9.dtb
+-rwxrwxr-x 1 dang dang 4.8M Sep 21 11:01 zImage
+dang@dang-Legion-Pro-7-16IRX8:~$ ls -lh ~/embedded_lab1/rootfs/initramfs/bin/busybox
+-rwxr-xr-x 1 dang dang 1.5M Sep 21 11:16 /home/dang/embedded_lab1/rootfs/initramfs/bin/busybox
+dang@dang-Legion-Pro-7-16IRX8:~$ which arm-linux-gnueabihf-gcc
+/usr/bin/arm-linux-gnueabihf-gcc
+dang@dang-Legion-Pro-7-16IRX8:~$ arm-linux-gnueabihf-gcc --version
+arm-linux-gnueabihf-gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+dang@dang-Legion-Pro-7-16IRX8:~$ ls ~/embedded_lab2/rootfs/initramfs/
+bin  dev  etc  init  lib  proc  sbin  sys  tmp  usr
+dang@dang-Legion-Pro-7-16IRX8:~$ cd ~/embedded_lab2/driver
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ nano lab2_driver.c
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ nano Makefile
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ file lab2_driver.ko
+lab2_driver.ko: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV), BuildID[sha1]=bc05409adba799aef7b0ab9baf52129073b99b75, with debug_info, not stripped
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ modinfo lab2_driver.ko
+filename:       /home/dang/embedded_lab2/driver/lab2_driver.ko
+version:        1.0
+description:    LAB-02: Simple Character Device Driver
+author:         Embedded Linux Lab
+license:        GPL
+srcversion:     E5D998AAA9CEB1669F6B467
+depends:        
+name:           lab2_driver
+vermagic:       5.15.0 SMP mod_unload ARMv7 p2v8 
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ modinfo lab2_driver.ko | grep vermagic
+vermagic:       5.15.0 SMP mod_unload ARMv7 p2v8 
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ mkdir -p ~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ cp ~/embedded_lab2/driver/lab2_driver.ko \
+~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/
+cp: cannot create regular file '/home/dang/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/lab2_driver.ko': Permission denied
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls -lh ~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/
+total 140K
+-rw-r--r-- 1 root root 140K Oct  5 09:46 lab2_driver.ko
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ nano ~/embedded_lab2/rootfs/initramfs/usr/bin/test_driver.sh
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo mkdir -p ~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls -ld ~/embedded_lab2/rootfs/initramfs
+drwxrwxr-x 11 dang dang 4096 Sep 28 11:12 /home/dang/embedded_lab2/rootfs/initramfs
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo ls -lh ~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/
+total 140K
+-rw-r--r-- 1 root root 140K Oct  5 09:46 lab2_driver.ko
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo chown -R dang:dang ~/embedded_lab2/rootfs
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls -lh ~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/
+total 140K
+-rw-r--r-- 1 dang dang 140K Oct  5 09:46 lab2_driver.ko
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ lsmod
+ls -l /dev/lab2
+cat /proc/lab2_info
+cat /sys/class/lab2_class/lab2/buffer_len
+Module                  Size  Used by
+rfcomm                102400  4
+snd_seq_dummy          12288  0
+snd_hrtimer            12288  1
+ccm                    20480  6
+cmac                   12288  2
+algif_hash             20480  1
+algif_skcipher         12288  1
+af_alg                 32768  6 algif_hash,algif_skcipher
+snd_hda_codec_intelhdmi    24576  1
+xe                   4333568  0
+snd_hda_codec_alc269   147456  1
+snd_hda_codec_realtek_lib    65536  1 snd_hda_codec_alc269
+snd_hda_scodec_component    20480  1 snd_hda_codec_alc269
+drm_gpusvm_helper      57344  1 xe
+snd_hda_codec_generic   122880  2 snd_hda_codec_realtek_lib,snd_hda_codec_alc269
+drm_suballoc_helper    24576  1 xe
+qrtr                   53248  2
+bnep                   32768  2
+binfmt_misc            24576  1
+nls_iso8859_1          12288  1
+snd_sof_pci_intel_tgl    12288  0
+snd_sof_pci_intel_cnl    20480  1 snd_sof_pci_intel_tgl
+snd_sof_intel_hda_generic    40960  2 snd_sof_pci_intel_tgl,snd_sof_pci_intel_cnl
+soundwire_intel        81920  1 snd_sof_intel_hda_generic
+snd_sof_intel_hda_sdw_bpt    20480  1 soundwire_intel
+snd_sof_intel_hda_common   196608  4 snd_sof_intel_hda_sdw_bpt,snd_sof_intel_hda_generic,snd_sof_pci_intel_tgl,snd_sof_pci_intel_cnl
+snd_soc_hdac_hda       20480  1 snd_sof_intel_hda_common
+snd_sof_intel_hda_mlink    45056  4 snd_sof_intel_hda_sdw_bpt,soundwire_intel,snd_sof_intel_hda_common,snd_sof_intel_hda_generic
+snd_sof_intel_hda      24576  2 snd_sof_intel_hda_common,snd_sof_intel_hda_generic
+soundwire_cadence      53248  1 soundwire_intel
+snd_sof_pci            24576  3 snd_sof_intel_hda_generic,snd_sof_pci_intel_tgl,snd_sof_pci_intel_cnl
+snd_sof_xtensa_dsp     12288  1 snd_sof_intel_hda_generic
+snd_sof               421888  6 snd_sof_intel_hda_sdw_bpt,snd_sof_pci,snd_sof_intel_hda_common,snd_sof_intel_hda_generic,snd_sof_intel_hda,snd_sof_pci_intel_cnl
+snd_sof_utils          16384  1 snd_sof
+snd_soc_acpi_intel_match   147456  3 snd_sof_intel_hda_generic,snd_sof_pci_intel_tgl,snd_sof_pci_intel_cnl
+snd_soc_acpi_intel_sdca_quirks    12288  1 snd_soc_acpi_intel_match
+intel_uncore_frequency    12288  0
+soundwire_generic_allocation    24576  1 soundwire_intel
+snd_soc_sdw_utils     126976  1 snd_sof_intel_hda_generic
+intel_uncore_frequency_common    20480  1 intel_uncore_frequency
+intel_tcc_cooling      12288  0
+snd_soc_acpi           16384  2 snd_soc_acpi_intel_match,snd_sof_intel_hda_generic
+nouveau              3104768  0
+soundwire_bus        1179648  4 soundwire_intel,snd_soc_sdw_utils,soundwire_generic_allocation,soundwire_cadence
+snd_soc_sdca          118784  2 snd_soc_acpi_intel_sdca_quirks,soundwire_bus
+x86_pkg_temp_thermal    20480  0
+snd_hda_codec_nvhdmi    16384  1
+snd_hda_scodec_tas2781_i2c    28672  0
+intel_powerclamp       28672  0
+snd_soc_avs           225280  0
+snd_hda_codec_hdmi     65536  2 snd_hda_codec_nvhdmi,snd_hda_codec_intelhdmi
+snd_hda_scodec_tas2781    20480  1 snd_hda_scodec_tas2781_i2c
+coretemp               24576  0
+snd_soc_hda_codec      24576  1 snd_soc_avs
+gpu_sched              69632  2 xe,nouveau
+snd_soc_tas2781_comlib_i2c    16384  1 snd_hda_scodec_tas2781_i2c
+processor_thermal_device_pci    16384  0
+uvcvideo              143360  0
+snd_hda_intel          61440  2
+snd_hda_ext_core       32768  7 snd_sof_intel_hda_sdw_bpt,snd_soc_avs,snd_soc_hda_codec,snd_sof_intel_hda_common,snd_soc_hdac_hda,snd_sof_intel_hda_mlink,snd_sof_intel_hda
+drm_gpuvm              53248  2 xe,nouveau
+snd_soc_tas2781_fmwlib    53248  1 snd_hda_scodec_tas2781_i2c
+processor_thermal_device    24576  1 processor_thermal_device_pci
+kvm_intel             540672  0
+videobuf2_vmalloc      20480  1 uvcvideo
+iwlmvm                843776  0
+snd_hda_codec         204800  11 snd_hda_codec_generic,snd_soc_avs,snd_hda_codec_hdmi,snd_soc_hda_codec,snd_hda_intel,snd_hda_codec_nvhdmi,snd_hda_codec_realtek_lib,snd_soc_hdac_hda,snd_hda_codec_alc269,snd_sof_intel_hda,snd_hda_codec_intelhdmi
+btusb                  81920  0
+processor_thermal_wt_hint    16384  2 processor_thermal_device_pci,processor_thermal_device
+snd_soc_tas2781_comlib    12288  4 snd_hda_scodec_tas2781,snd_soc_tas2781_fmwlib,snd_soc_tas2781_comlib_i2c,snd_hda_scodec_tas2781_i2c
+mxm_wmi                12288  1 nouveau
+uvc                    12288  1 uvcvideo
+i915                 4997120  10
+kvm                  1507328  1 kvm_intel
+btmtk                  36864  1 btusb
+snd_hda_core          151552  13 snd_hda_codec_generic,snd_soc_avs,snd_hda_codec_hdmi,snd_soc_hda_codec,snd_hda_intel,snd_hda_ext_core,snd_hda_codec,snd_sof_intel_hda_common,snd_hda_codec_realtek_lib,snd_soc_hdac_hda,snd_hda_codec_alc269,snd_sof_intel_hda,snd_hda_codec_intelhdmi
+snd_seq_midi           24576  0
+snd_soc_core          425984  9 snd_soc_avs,snd_soc_hda_codec,soundwire_intel,snd_sof,snd_soc_sdca,snd_sof_intel_hda_common,snd_soc_sdw_utils,snd_soc_hdac_hda,snd_hda_scodec_tas2781_i2c
+platform_temperature_control    20480  1 processor_thermal_device
+videobuf2_memops       16384  1 videobuf2_vmalloc
+drm_ttm_helper         20480  2 xe,nouveau
+drm_buddy              28672  2 xe,i915
+mac80211             1892352  1 iwlmvm
+btrtl                  32768  1 btusb
+irqbypass              16384  1 kvm
+snd_intel_dspcfg       45056  5 snd_soc_avs,snd_hda_intel,snd_sof,snd_sof_intel_hda_common,snd_sof_intel_hda_generic
+snd_seq_midi_event     16384  1 snd_seq_midi
+snd_compress           40960  2 snd_soc_avs,snd_soc_core
+processor_thermal_soc_slider    16384  1 processor_thermal_device
+videobuf2_v4l2         36864  1 uvcvideo
+lenovo_wmi_gamezone    12288  0
+ttm                   131072  4 drm_ttm_helper,xe,i915,nouveau
+btbcm                  24576  1 btusb
+drm_exec               12288  3 drm_gpuvm,xe,nouveau
+ghash_clmulni_intel    12288  0
+snd_intel_sdw_acpi     16384  2 snd_intel_dspcfg,snd_sof_intel_hda_generic
+cmdlinepart            16384  0
+ac97_bus               12288  1 snd_soc_core
+snd_rawmidi            57344  1 snd_seq_midi
+processor_thermal_rfim    40960  1 processor_thermal_device
+videobuf2_common       86016  4 videobuf2_vmalloc,videobuf2_v4l2,uvcvideo,videobuf2_memops
+libarc4                12288  1 mac80211
+lenovo_wmi_other       36864  1 lenovo_wmi_gamezone
+btintel                69632  1 btusb
+aesni_intel            98304  3
+drm_display_helper    299008  3 xe,i915,nouveau
+snd_hwdep              24576  1 snd_hda_codec
+snd_pcm_dmaengine      20480  1 snd_soc_core
+spi_nor               172032  0
+intel_rapl_msr         20480  0
+processor_thermal_rapl    16384  1 processor_thermal_device
+snd_seq               126976  9 snd_seq_midi,snd_seq_midi_event,snd_seq_dummy
+videodev              368640  2 videobuf2_v4l2,uvcvideo
+lenovo_wmi_helpers     12288  2 lenovo_wmi_other,lenovo_wmi_gamezone
+i2c_i801               36864  0
+rapl                   20480  0
+cec                    98304  3 drm_display_helper,xe,i915
+iwlwifi               647168  1 iwlmvm
+mtd                   106496  4 spi_nor,cmdlinepart
+intel_rapl_common      57344  2 intel_rapl_msr,processor_thermal_rapl
+snd_pcm               204800  14 snd_soc_avs,snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec,soundwire_intel,snd_sof,snd_soc_sdca,snd_sof_intel_hda_common,snd_compress,snd_sof_intel_hda_generic,snd_soc_core,snd_sof_utils,snd_hda_core,snd_pcm_dmaengine
+mei_pxp                16384  0
+mei_hdcp               28672  0
+xpad                   57344  0
+bluetooth            1077248  34 btrtl,btmtk,btintel,btbcm,bnep,btusb,rfcomm
+snd_seq_device         16384  3 snd_seq,snd_seq_midi,snd_rawmidi
+i2c_smbus              20480  1 i2c_i801
+rc_core                73728  1 cec
+intel_cstate           20480  0
+lenovo_wmi_capdata     20480  1 lenovo_wmi_other
+mc                     90112  4 videodev,videobuf2_v4l2,uvcvideo,videobuf2_common
+processor_thermal_wt_req    12288  1 processor_thermal_device
+spi_intel_pci          12288  0
+lenovo_wmi_events      12288  1 lenovo_wmi_gamezone
+firmware_attributes_class    12288  1 lenovo_wmi_other
+lenovo_wmi_hotkey_utilities    12288  0
+nvidia_wmi_ec_backlight    12288  0
+wmi_bmof               12288  0
+ff_memless             24576  1 xpad
+cfg80211             1519616  3 iwlmvm,iwlwifi,mac80211
+processor_thermal_power_floor    12288  2 processor_thermal_device_pci,processor_thermal_device
+i2c_mux                20480  1 i2c_i801
+snd_timer              53248  3 snd_seq,snd_hrtimer,snd_pcm
+spi_intel              36864  1 spi_intel_pci
+ideapad_laptop         53248  0
+intel_pmc_core        151552  0
+i2c_algo_bit           16384  3 xe,i915,nouveau
+processor_thermal_mbox    12288  4 processor_thermal_power_floor,processor_thermal_wt_req,processor_thermal_rfim,processor_thermal_wt_hint
+sparse_keymap          12288  1 ideapad_laptop
+pmt_telemetry          16384  1 intel_pmc_core
+int3403_thermal        16384  0
+snd                   143360  24 snd_hda_codec_generic,snd_seq,snd_seq_device,snd_hda_codec_hdmi,snd_hwdep,snd_hda_intel,snd_hda_codec,snd_sof,snd_soc_sdca,snd_timer,snd_hda_codec_realtek_lib,snd_compress,snd_soc_sdw_utils,snd_hda_codec_alc269,snd_soc_core,snd_pcm,snd_hda_scodec_tas2781_i2c,snd_rawmidi
+platform_profile       20480  3 lenovo_wmi_gamezone,ideapad_laptop,processor_thermal_soc_slider
+pmt_discovery          24576  1 pmt_telemetry
+int340x_thermal_zone    16384  2 int3403_thermal,processor_thermal_device
+soundcore              16384  1 snd
+pmt_class              20480  2 pmt_telemetry,pmt_discovery
+int3400_thermal        24576  0
+crc8                   12288  3 snd_soc_tas2781_fmwlib,snd_soc_tas2781_comlib_i2c,soundwire_cadence
+intel_pmc_ssram_telemetry    16384  1 intel_pmc_core
+acpi_thermal_rel       24576  1 int3400_thermal
+intel_vsec             24576  3 intel_pmc_ssram_telemetry,pmt_telemetry,xe
+acpi_pad              184320  0
+acpi_tad               20480  0
+input_leds             12288  0
+mei_me                 57344  2
+joydev                 32768  0
+serio_raw              20480  0
+mac_hid                12288  0
+mei                   176128  5 mei_hdcp,mei_pxp,mei_me
+sch_fq_codel           28672  2
+msr                    12288  0
+parport_pc             53248  0
+ppdev                  24576  0
+lp                     32768  0
+parport                73728  3 parport_pc,lp,ppdev
+efi_pstore             12288  0
+nfnetlink              20480  1
+dmi_sysfs              24576  0
+ip_tables              32768  0
+x_tables               65536  1 ip_tables
+autofs4                57344  2
+usbhid                 77824  0
+hid_multitouch         36864  0
+hid_generic            12288  0
+nvme                   65536  2
+ucsi_acpi              12288  0
+typec_ucsi             77824  1 ucsi_acpi
+nvme_core             237568  3 nvme
+typec                 126976  1 typec_ucsi
+intel_lpss_pci         28672  0
+nvme_keyring           20480  1 nvme_core
+i2c_hid_acpi           12288  0
+r8169                 147456  0
+intel_lpss             12288  1 intel_lpss_pci
+thunderbolt           552960  1 typec
+nvme_auth              28672  1 nvme_core
+i2c_hid                40960  1 i2c_hid_acpi
+realtek                57344  1
+idma64                 20480  0
+hkdf                   12288  1 nvme_auth
+video                  77824  5 nvidia_wmi_ec_backlight,ideapad_laptop,xe,i915,nouveau
+hid                   282624  5 i2c_hid,usbhid,hid_multitouch,snd_soc_sdca,hid_generic
+wmi                    36864  12 lenovo_wmi_events,video,nvidia_wmi_ec_backlight,lenovo_wmi_capdata,lenovo_wmi_hotkey_utilities,lenovo_wmi_other,wmi_bmof,lenovo_wmi_gamezone,ideapad_laptop,mxm_wmi,lenovo_wmi_helpers,nouveau
+pinctrl_alderlake      32768  1
+ls: cannot access '/dev/lab2': No such file or directory
+cat: /proc/lab2_info: No such file or directory
+cat: /sys/class/lab2_class/lab2/buffer_len: No such file or directory
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo chown -R dang:dang ~/embedded_lab2/rootfs
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls -lh ~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/
+total 140K
+-rw-r--r-- 1 dang dang 140K Oct  5 09:46 lab2_driver.ko
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ nano ~/embedded_lab2/rootfs/initramfs/usr/bin/test_driver.sh
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ chmod +x ~/embedded_lab2/rootfs/initramfs/usr/bin/test_driver.sh
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ cd ~/embedded_lab2/driver
+make clean
+make
+make -C /home/dang/embedded_lab1/kernel/linux-5.15 M=/home/dang/embedded_lab2/driver ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- clean
+make[1]: Entering directory '/home/dang/embedded_lab1/kernel/linux-5.15'
+  CLEAN   /home/dang/embedded_lab2/driver/Module.symvers
+make[1]: Leaving directory '/home/dang/embedded_lab1/kernel/linux-5.15'
+make -C /home/dang/embedded_lab1/kernel/linux-5.15 M=/home/dang/embedded_lab2/driver ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- modules
+make[1]: Entering directory '/home/dang/embedded_lab1/kernel/linux-5.15'
+  CC [M]  /home/dang/embedded_lab2/driver/lab2_driver.o
+WARNING: Symbol version dump "Module.symvers" is missing.
+         Modules may not have dependencies or modversions.
+         You may get many unresolved symbol warnings.
+  MODPOST /home/dang/embedded_lab2/driver/Module.symvers
+WARNING: modpost: "single_release" [/home/dang/embedded_lab2/driver/lab2_driver.ko] undefined!
+WARNING: modpost: "seq_lseek" [/home/dang/embedded_lab2/driver/lab2_driver.ko] undefined!
+WARNING: modpost: "seq_read" [/home/dang/embedded_lab2/driver/lab2_driver.ko] undefined!
+WARNING: modpost: "device_destroy" [/home/dang/embedded_lab2/driver/lab2_driver.ko] undefined!
+WARNING: modpost: "sysfs_remove_group" [/home/dang/embedded_lab2/driver/lab2_driver.ko] undefined!
+WARNING: modpost: "proc_remove" [/home/dang/embedded_lab2/driver/lab2_driver.ko] undefined!
+WARNING: modpost: "sysfs_create_group" [/home/dang/embedded_lab2/driver/lab2_driver.ko] undefined!
+WARNING: modpost: "proc_create" [/home/dang/embedded_lab2/driver/lab2_driver.ko] undefined!
+WARNING: modpost: "class_destroy" [/home/dang/embedded_lab2/driver/lab2_driver.ko] undefined!
+WARNING: modpost: "device_create" [/home/dang/embedded_lab2/driver/lab2_driver.ko] undefined!
+WARNING: modpost: suppressed 14 unresolved symbol warnings because there were too many)
+  CC [M]  /home/dang/embedded_lab2/driver/lab2_driver.mod.o
+  LD [M]  /home/dang/embedded_lab2/driver/lab2_driver.ko
+make[1]: Leaving directory '/home/dang/embedded_lab1/kernel/linux-5.15'
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ cp lab2_driver.ko \
+~/embedded_lab2/rootfs/initramfs/lib/modules/5.15.0/
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ nano ~/embedded_lab2/rootfs/initramfs/usr/bin/test_procfs.sh
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ chmod +x ~/embedded_lab2/rootfs/initramfs/usr/bin/test_procfs.sh
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo modprobe nandsim
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo modprobe nandsim first_id_byte=0x20 second_id_byte=0x35
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo modprobe mtdblock
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo modprobe jffs2
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ cat /proc/mtd
+dev:    size   erasesize  name
+mtd0: 00800000 00001000 "BIOS"
+mtd1: 01000000 00001000 "BIOS1"
+mtd2: 08000000 00004000 "NAND simulator partition 0"
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls /dev/mtd*
+/dev/mtd0    /dev/mtd1    /dev/mtd2    /dev/mtdblock0  /dev/mtdblock2
+/dev/mtd0ro  /dev/mtd1ro  /dev/mtd2ro  /dev/mtdblock1
+
+/dev/mtd:
+by-name
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls /dev/mtdblock*
+/dev/mtdblock0  /dev/mtdblock1  /dev/mtdblock2
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo mtdinfo /dev/mtd0
+mtd0
+Name:                           BIOS
+Type:                           nor
+Eraseblock size:                4096 bytes, 4.0 KiB
+Amount of eraseblocks:          2048 (8388608 bytes, 8.0 MiB)
+Minimum input/output unit size: 1 byte
+Sub-page size:                  1 byte
+Character device major/minor:   90:0
+Bad blocks are allowed:         false
+Device is writable:             false
+
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo mtdinfo /dev/mtd2
+mtd2
+Name:                           NAND simulator partition 0
+Type:                           nand
+Eraseblock size:                16384 bytes, 16.0 KiB
+Amount of eraseblocks:          8192 (134217728 bytes, 128.0 MiB)
+Minimum input/output unit size: 512 bytes
+Sub-page size:                  256 bytes
+OOB size:                       16 bytes
+Character device major/minor:   90:4
+Bad blocks are allowed:         true
+Device is writable:             true
+
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo flash_erase /dev/mtd0 0 0
+flash_erase: error!: /dev/mtd0
+             error 13 (Permission denied)
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo flash_erase /dev/mtd2 0 0
+Erasing 131072 Kibyte @ 0 -- 100 % complete 
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo flash_erase /dev/mtd2 0 0
+Erasing 131072 Kibyte @ 0 -- 100 % complete 
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo flash_erase /dev/mtd0 0 0
+flash_erase: error!: /dev/mtd0
+             error 13 (Permission denied)
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ mkdir -p /tmp/jffs2_data
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ echo 'Hello from JFFS2!' > /tmp/jffs2_data/hello.txt
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ echo 'Embedded Linux Lab2' > /tmp/jffs2_data/info.txt
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ mkdir -p /tmp/jffs2_data/logs
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ date > /tmp/jffs2_data/logs/boot.log
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo mkfs.jffs2 \
+--root=/tmp/jffs2_data \
+--eraseblock=0x4000 \
+--output=/tmp/rootfs.jffs2 \
+--pad \
+--no-cleanmarkers
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls -lh /tmp/rootfs.jffs2
+-rw-r--r-- 1 root root 16K Oct  5 10:10 /tmp/rootfs.jffs2
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo nandwrite -p /dev/mtd0 /tmp/rootfs.jffs2
+nandwrite: error!: /dev/mtd0
+           error 13 (Permission denied)
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo nandwrite -p /dev/mtd2 /tmp/rootfs.jffs2
+Writing data to block 0 at offset 0x0
+Written 30 blocks containing only 0xff bytes
+Those block may be incorrectly treated as empty!
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo nanddump -o -l 512 /dev/mtd2 /tmp/dump.bin
+Usage: nanddump [OPTIONS] MTD-device
+Dumps the contents of a nand mtd partition.
+
+-h         --help               Display this help and exit
+           --version            Output version information and exit
+           --bb=METHOD          Choose bad block handling method (see below).
+-a         --forcebinary        Force printing of binary data to tty
+-c         --canonicalprint     Print canonical Hex+ASCII dump
+-f file    --file=file          Dump to file
+-l length  --length=length      Length
+-n         --noecc              Read without error correction
+           --omitoob            Omit OOB data (default)
+-o         --oob                Dump OOB data
+-p         --prettyprint        Print nice (hexdump)
+-q         --quiet              Don't display progress and status messages
+-s addr    --startaddress=addr  Start address
+           --skip-bad-blocks-to-start
+                                Skip bad blocks when seeking to the start address
+
+--bb=METHOD, where METHOD can be `padbad', `dumpbad', or `skipbad':
+    padbad:  dump flash data, substituting 0xFF for any bad blocks
+    dumpbad: dump flash data, including any bad blocks
+    skipbad: dump good data, completely skipping any bad blocks (default)
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls -lh /tmp/dump.bin
+ls: cannot access '/tmp/dump.bin': No such file or directory
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo nanddump -f /tmp/dump.bin -l 512 /dev/mtd2
+ECC failed: 0
+ECC corrected: 0
+Number of bad blocks: 0
+Number of bbt blocks: 0
+Block size 16384, page size 512, OOB size 16
+Dumping data starting at 0x00000000 and ending at 0x00000200...
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls -lh /tmp/dump.bin
+-rw-r--r-- 1 root root 512 Oct  5 10:14 /tmp/dump.bin
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ hexdump -C /tmp/dump.bin | head -20
+00000000  85 19 01 e0 31 00 00 00  1d d9 82 42 01 00 00 00  |....1......B....|
+00000010  00 00 00 00 02 00 00 00  06 15 c3 6a 09 08 00 00  |...........j....|
+00000020  f3 02 30 4d 15 da 69 f4  68 65 6c 6c 6f 2e 74 78  |..0M..i.hello.tx|
+00000030  74 ff ff ff 85 19 02 e0  56 00 00 00 09 64 e7 62  |t.......V....d.b|
+00000040  02 00 00 00 01 00 00 00  b4 81 00 00 e8 03 e8 03  |................|
+00000050  12 00 00 00 06 15 c3 6a  06 15 c3 6a 06 15 c3 6a  |.......j...j...j|
+00000060  00 00 00 00 12 00 00 00  12 00 00 00 00 00 00 00  |................|
+00000070  ee dd 4b b3 00 b9 6e e2  48 65 6c 6c 6f 20 66 72  |..K...n.Hello fr|
+00000080  6f 6d 20 4a 46 46 53 32  21 0a ff ff 85 19 01 e0  |om JFFS2!.......|
+00000090  30 00 00 00 78 be 3e fa  01 00 00 00 01 00 00 00  |0...x.>.........|
+000000a0  03 00 00 00 0a 15 c3 6a  08 08 00 00 27 ad ee 97  |.......j....'...|
+000000b0  a9 de 79 72 69 6e 66 6f  2e 74 78 74 85 19 02 e0  |..yrinfo.txt....|
+000000c0  58 00 00 00 3a 13 38 82  03 00 00 00 01 00 00 00  |X...:.8.........|
+000000d0  b4 81 00 00 e8 03 e8 03  14 00 00 00 0a 15 c3 6a  |...............j|
+000000e0  0a 15 c3 6a 0a 15 c3 6a  00 00 00 00 14 00 00 00  |...j...j........|
+000000f0  14 00 00 00 00 00 00 00  8a 74 43 dd 12 6d 87 dc  |.........tC..m..|
+00000100  45 6d 62 65 64 64 65 64  20 4c 69 6e 75 78 20 4c  |Embedded Linux L|
+00000110  61 62 32 0a 85 19 01 e0  2c 00 00 00 5f 56 f1 e0  |ab2.....,..._V..|
+00000120  01 00 00 00 02 00 00 00  04 00 00 00 18 15 c3 6a  |...............j|
+00000130  04 04 00 00 d0 80 ec b7  40 19 cb d1 6c 6f 67 73  |........@...logs|
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo nanddump -o -l 512 /dev/mtd2 /tmp/dump.bin
+Usage: nanddump [OPTIONS] MTD-device
+Dumps the contents of a nand mtd partition.
+
+-h         --help               Display this help and exit
+           --version            Output version information and exit
+           --bb=METHOD          Choose bad block handling method (see below).
+-a         --forcebinary        Force printing of binary data to tty
+-c         --canonicalprint     Print canonical Hex+ASCII dump
+-f file    --file=file          Dump to file
+-l length  --length=length      Length
+-n         --noecc              Read without error correction
+           --omitoob            Omit OOB data (default)
+-o         --oob                Dump OOB data
+-p         --prettyprint        Print nice (hexdump)
+-q         --quiet              Don't display progress and status messages
+-s addr    --startaddress=addr  Start address
+           --skip-bad-blocks-to-start
+                                Skip bad blocks when seeking to the start address
+
+--bb=METHOD, where METHOD can be `padbad', `dumpbad', or `skipbad':
+    padbad:  dump flash data, substituting 0xFF for any bad blocks
+    dumpbad: dump flash data, including any bad blocks
+    skipbad: dump good data, completely skipping any bad blocks (default)
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls -lh /tmp/dump.bin
+-rw-r--r-- 1 root root 512 Oct  5 10:14 /tmp/dump.bin
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ hexdump -C /tmp/dump.bin | head -20
+00000000  85 19 01 e0 31 00 00 00  1d d9 82 42 01 00 00 00  |....1......B....|
+00000010  00 00 00 00 02 00 00 00  06 15 c3 6a 09 08 00 00  |...........j....|
+00000020  f3 02 30 4d 15 da 69 f4  68 65 6c 6c 6f 2e 74 78  |..0M..i.hello.tx|
+00000030  74 ff ff ff 85 19 02 e0  56 00 00 00 09 64 e7 62  |t.......V....d.b|
+00000040  02 00 00 00 01 00 00 00  b4 81 00 00 e8 03 e8 03  |................|
+00000050  12 00 00 00 06 15 c3 6a  06 15 c3 6a 06 15 c3 6a  |.......j...j...j|
+00000060  00 00 00 00 12 00 00 00  12 00 00 00 00 00 00 00  |................|
+00000070  ee dd 4b b3 00 b9 6e e2  48 65 6c 6c 6f 20 66 72  |..K...n.Hello fr|
+00000080  6f 6d 20 4a 46 46 53 32  21 0a ff ff 85 19 01 e0  |om JFFS2!.......|
+00000090  30 00 00 00 78 be 3e fa  01 00 00 00 01 00 00 00  |0...x.>.........|
+000000a0  03 00 00 00 0a 15 c3 6a  08 08 00 00 27 ad ee 97  |.......j....'...|
+000000b0  a9 de 79 72 69 6e 66 6f  2e 74 78 74 85 19 02 e0  |..yrinfo.txt....|
+000000c0  58 00 00 00 3a 13 38 82  03 00 00 00 01 00 00 00  |X...:.8.........|
+000000d0  b4 81 00 00 e8 03 e8 03  14 00 00 00 0a 15 c3 6a  |...............j|
+000000e0  0a 15 c3 6a 0a 15 c3 6a  00 00 00 00 14 00 00 00  |...j...j........|
+000000f0  14 00 00 00 00 00 00 00  8a 74 43 dd 12 6d 87 dc  |.........tC..m..|
+00000100  45 6d 62 65 64 64 65 64  20 4c 69 6e 75 78 20 4c  |Embedded Linux L|
+00000110  61 62 32 0a 85 19 01 e0  2c 00 00 00 5f 56 f1 e0  |ab2.....,..._V..|
+00000120  01 00 00 00 02 00 00 00  04 00 00 00 18 15 c3 6a  |...............j|
+00000130  04 04 00 00 d0 80 ec b7  40 19 cb d1 6c 6f 67 73  |........@...logs|
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo mkdir -p /mnt/jffs2
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ sudo mount -t jffs2 /dev/mtdblock2 /mnt/jffs2
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ ls -la /mnt/jffs2
+total 5
+drwxr-xr-x 4 root root    0 Jan  1  1970 .
+drwxr-xr-x 3 root root 4096 Oct  5 10:15 ..
+-rw-rw-r-- 1 dang dang   18 Oct  5 10:09 hello.txt
+-rw-rw-r-- 1 dang dang   20 Oct  5 10:10 info.txt
+drwxrwxr-x 2 dang dang    0 Oct  5 10:10 logs
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ cat /mnt/jffs2/hello.txt
+Hello from JFFS2!
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ cat /mnt/jffs2/info.txt
+Embedded Linux Lab2
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ cat /mnt/jffs2/logs/boot.log
+Mon Oct  5 10:10:16 AM +07 2026
+dang@dang-Legion-Pro-7-16IRX8:~/embedded_lab2/driver$ 
